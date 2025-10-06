@@ -1,7 +1,7 @@
 #include "Arduino.h"
 
-#define Vin 12 //*** Define the GPIO pin 12 as Vin ***
-#define Vout 27 //*** Define the GPIO pin 27 as Vout ***
+#define Vin 13 //*** Define the GPIO pin 12 as Vin ***
+#define Vout 32 //*** Define the GPIO pin 27 as Vout ***
 #define Cal 14 //*** Define the GPIO pin 14 as the node for current calcultion ***
 
 //float R = ; //*** Resistance in Mohm ***
@@ -23,12 +23,13 @@ void setup() {
   for (int onPeriod = 0; onPeriod < 256; onPeriod++) 
     {
     
-    analogWrite(Vin ,map(onPeriod, 0, 255, 0, 4095));// Output PWM at Vin      
+    //analogWrite(Vin ,map(onPeriod, 0, 255, 0, 4095));// Output PWM at Vin      
+    analogWrite(Vin ,onPeriod);// Output PWM at Vin  
     int Vout_value = analogRead(Vout); // read the voltage level at Vout 
     // int c_value = analogRead(); // read the voltage level at the node for current calcultion  
     // c=  ;//calculate the voltage at the node for current calcultion  
-    x =  float(onPeriod)/255; // calculate duty cycle for TASK 1 or the voltage at Vout in mV for Task 2 3 4
-    y =  float(float(Vout_value)*3.3/4095); // calculate the voltage at Vout in V for TASK 1 or current in uA for Task 2 3 4
+    x =  float(onPeriod)/255.0f; // calculate duty cycle for TASK 1 or the voltage at Vout in mV for Task 2 3 4
+    y =  float(Vout_value)*3.3f/4095.0f; // calculate the voltage at Vout in V for TASK 1 or current in uA for Task 2 3 4
 
     Serial.print(x); 
     Serial.print(","); // seperate values by comma 
